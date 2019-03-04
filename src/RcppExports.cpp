@@ -6,16 +6,6 @@
 
 using namespace Rcpp;
 
-// rcpp_hello
-List rcpp_hello();
-RcppExport SEXP _ZIMHMM_rcpp_hello() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_hello());
-    return rcpp_result_gen;
-END_RCPP
-}
 // Viterbi
 NumericVector Viterbi(NumericMatrix LOGF, NumericVector P, NumericMatrix GAMMA);
 RcppExport SEXP _ZIMHMM_Viterbi(SEXP LOGFSEXP, SEXP PSEXP, SEXP GAMMASEXP) {
@@ -167,7 +157,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_ZIMHMM_rcpp_hello", (DL_FUNC) &_ZIMHMM_rcpp_hello, 0},
     {"_ZIMHMM_Viterbi", (DL_FUNC) &_ZIMHMM_Viterbi, 3},
     {"_ZIMHMM_hmm_logF", (DL_FUNC) &_ZIMHMM_hmm_logF, 4},
     {"_ZIMHMM_hmm_logB", (DL_FUNC) &_ZIMHMM_hmm_logB, 4},

@@ -2,19 +2,10 @@
     {
         "definitions" : [
             {
-                "column" : 6,
-                "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
-                "kind" : 6,
-                "line" : 22,
-                "name" : "rcpp_hello",
-                "parent_name" : "",
-                "usr" : "c:@F@rcpp_hello#"
-            },
-            {
                 "column" : 15,
                 "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
                 "kind" : 6,
-                "line" : 30,
+                "line" : 22,
                 "name" : "Viterbi(NumericMatrix, NumericVector, NumericMatrix)",
                 "parent_name" : "",
                 "usr" : "c:@F@Viterbi#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#"
@@ -23,7 +14,7 @@
                 "column" : 15,
                 "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
                 "kind" : 6,
-                "line" : 66,
+                "line" : 58,
                 "name" : "hmm_logF(NumericVector, NumericVector, NumericVector, NumericMatrix)",
                 "parent_name" : "",
                 "usr" : "c:@F@hmm_logF#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#S0_#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
@@ -32,7 +23,7 @@
                 "column" : 15,
                 "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
                 "kind" : 6,
-                "line" : 101,
+                "line" : 93,
                 "name" : "hmm_logB(NumericVector, NumericVector, NumericVector, NumericMatrix)",
                 "parent_name" : "",
                 "usr" : "c:@F@hmm_logB#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#S0_#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
@@ -41,7 +32,7 @@
                 "column" : 15,
                 "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
                 "kind" : 6,
-                "line" : 136,
+                "line" : 128,
                 "name" : "hmm_P1(NumericMatrix, NumericMatrix)",
                 "parent_name" : "",
                 "usr" : "c:@F@hmm_P1#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#"
@@ -50,7 +41,7 @@
                 "column" : 15,
                 "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
                 "kind" : 6,
-                "line" : 159,
+                "line" : 151,
                 "name" : "hmm_P2(NumericMatrix, NumericMatrix, NumericVector, NumericVector, NumericMatrix)",
                 "parent_name" : "",
                 "usr" : "c:@F@hmm_P2#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#S0_#"
@@ -59,7 +50,7 @@
                 "column" : 11,
                 "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
                 "kind" : 6,
-                "line" : 195,
+                "line" : 187,
                 "name" : "my_dnbinom(arma::mat, arma::mat, double, int)",
                 "parent_name" : "",
                 "usr" : "c:@F@my_dnbinom#$@N@arma@C@Mat>#d#S0_#d#I#"
@@ -68,7 +59,7 @@
                 "column" : 11,
                 "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
                 "kind" : 6,
-                "line" : 205,
+                "line" : 197,
                 "name" : "MHMMmean(arma::mat, arma::mat, arma::mat, arma::mat, int, int, int)",
                 "parent_name" : "",
                 "usr" : "c:@F@MHMMmean#$@N@arma@C@Mat>#d#S0_#S0_#S0_#I#I#I#"
@@ -77,7 +68,7 @@
                 "column" : 11,
                 "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
                 "kind" : 6,
-                "line" : 227,
+                "line" : 219,
                 "name" : "MHMMLik(arma::vec, arma::mat, arma::mat, arma::vec, int, int, int)",
                 "parent_name" : "",
                 "usr" : "c:@F@MHMMLik#$@N@arma@C@Col>#d#$@N@arma@C@Mat>#d#S1_#S0_#I#I#I#"
@@ -86,7 +77,7 @@
                 "column" : 8,
                 "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
                 "kind" : 6,
-                "line" : 268,
+                "line" : 260,
                 "name" : "integrand(NumericVector, arma::vec, arma::mat, arma::mat, arma::vec, NumericVector, NumericMatrix, arma::vec, arma::mat, NumericVector, double)",
                 "parent_name" : "",
                 "usr" : "c:@F@integrand#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#$@N@arma@C@Col>#d#$@N@arma@C@Mat>#d#S2_#S1_#S0_#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S1_#S2_#S0_#d#"
@@ -95,13 +86,13 @@
                 "column" : 15,
                 "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
                 "kind" : 6,
-                "line" : 321,
+                "line" : 313,
                 "name" : "generateHMM(NumericMatrix, int)",
                 "parent_name" : "",
                 "usr" : "c:@F@generateHMM#$@N@Rcpp@C@Matrix>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#I#"
             }
         ],
         "file" : "/Users/pedroluizbaldoni/Dropbox/PhD/Research/Project1/ZIMHMM/src/codes.cpp",
-        "file_last_write" : 1551729745
+        "file_last_write" : 1551739394
     }
 ]
