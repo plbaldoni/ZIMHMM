@@ -1,0 +1,514 @@
+"0","fread
+"
+"1","function (input = """", file = NULL, text = NULL, cmd = NULL, sep = ""auto"", 
+"
+"1","    sep2 = ""auto"", dec = ""."", quote = ""\"""", nrows = Inf, header = ""auto"", 
+"
+"1","    na.strings = getOption(""datatable.na.strings"", ""NA""), stringsAsFactors = FALSE, 
+"
+"1","    verbose = getOption(""datatable.verbose"", FALSE), skip = ""__auto__"", 
+"
+"1","    select = NULL, drop = NULL, colClasses = NULL, integer64 = getOption(""datatable.integer64"", 
+"
+"1","        ""integer64""), col.names, check.names = FALSE, encoding = ""unknown"", 
+"
+"1","    strip.white = TRUE, fill = FALSE, blank.lines.skip = FALSE, 
+"
+"1","    key = NULL, index = NULL, showProgress = getOption(""datatable.showProgress"", 
+"
+"1","        interactive()), data.table = getOption(""datatable.fread.datatable"", 
+"
+"1","        TRUE), nThread = getDTthreads(verbose), logical01 = getOption(""datatable.logical01"", 
+"
+"1","        FALSE), autostart = NA) 
+"
+"1","{
+"
+"1","    if (missing(input) + is.null(file) + is.null(text) + is.null(cmd) < 
+"
+"1","        3L) 
+"
+"1","        stop(""Used more than one of the arguments input=, file=, text= and cmd=."")
+"
+"1","    input_has_vars = length(all.vars(substitute(input))) > 0L
+"
+"1","    if (is.null(sep)) 
+"
+"1","        sep = ""\n""
+"
+"1","    else {
+"
+"1","        stopifnot(length(sep) == 1L, !is.na(sep), is.character(sep))
+"
+"1","        if (sep == """") {
+"
+"1","            sep = ""\n""
+"
+"1","        }
+"
+"1","        else if (sep == ""auto"") 
+"
+"1","            sep = """"
+"
+"1","        else stopifnot(nchar(sep) == 1L)
+"
+"1","    }
+"
+"1","    stopifnot(is.character(dec), length(dec) == 1L, nchar(dec) == 
+"
+"1","        1L)
+"
+"1","    if (length(encoding) != 1L || !encoding %chin% c(""unknown"", 
+"
+"1","        ""UTF-8"", ""Latin-1"")) {
+"
+"1","        stop(""Argument 'encoding' must be 'unknown', 'UTF-8' or 'Latin-1'."")
+"
+"1","    }
+"
+"1","    isTrueFalse = function(x) isTRUE(x) || identical(FALSE, x)
+"
+"1","    isTrueFalseNA = function(x) isTRUE(x) || identical(FALSE, 
+"
+"1","        x) || identical(NA, x)
+"
+"1","    stopifnot(isTrueFalse(strip.white), isTrueFalse(blank.lines.skip), 
+"
+"1","        isTrueFalse(fill), isTrueFalse(showProgress), isTrueFalse(stringsAsFactors), 
+"
+"1","        isTrueFalse(verbose), isTrueFalse(check.names), isTrueFalse(logical01))
+"
+"1","    stopifnot(is.numeric(nrows), length(nrows) == 1L)
+"
+"1","    if (is.na(nrows) || nrows < 0) 
+"
+"1","        nrows = Inf
+"
+"1","    if (identical(header, ""auto"")) 
+"
+"1","        header = NA
+"
+"1","    stopifnot(isTrueFalseNA(header))
+"
+"1","    stopifnot(is.numeric(nThread) && length(nThread) == 1L)
+"
+"1","    nThread = as.integer(nThread)
+"
+"1","    stopifnot(nThread >= 1L)
+"
+"1","    if (!is.null(text)) {
+"
+"1","        if (!is.character(text)) 
+"
+"1","            stop(""'text=' is type "", typeof(text), "" but must be character."")
+"
+"1","        if (!length(text)) 
+"
+"1","            return(data.table())
+"
+"1","        if (length(text) > 1L) {
+"
+"1","            cat(text, file = (tmpFile <- tempfile()), sep = ""\n"")
+"
+"1","            file = tmpFile
+"
+"1","            on.exit(unlink(tmpFile), add = TRUE)
+"
+"1","        }
+"
+"1","        else {
+"
+"1","            input = text
+"
+"1","        }
+"
+"1","    }
+"
+"1","    else if (is.null(cmd)) {
+"
+"1","        if (!is.character(input) || length(input) != 1L) {
+"
+"1","            stop(""input= must be a single character string containing a file name, a system command containing at least one space, a URL starting 'http[s]://', 'ftp[s]://' or 'file://', or, the input data itself containing at least one \\n or \\r"")
+"
+"1","        }
+"
+"1","        if (input == """" || length(grep(""\\n|\\r"", input))) {
+"
+"1","        }
+"
+"1","        else {
+"
+"1","            if (substring(input, 1L, 1L) == "" "") {
+"
+"1","                stop(""input= contains no \\n or \\r, but starts with a space. Please remove the leading space, or use text=, file= or cmd="")
+"
+"1","            }
+"
+"1","            str6 = substring(input, 1L, 6L)
+"
+"1","            str7 = substring(input, 1L, 7L)
+"
+"1","            str8 = substring(input, 1L, 8L)
+"
+"1","            if (str7 == ""ftps://"" || str8 == ""https://"") {
+"
+"1","                if (!requireNamespace(""curl"", quietly = TRUE)) 
+"
+"1","                  stop(""Input URL requires https:// connection for which fread() requires 'curl' package which cannot be found. Please install 'curl' using 'install.packages('curl')'."")
+"
+"1","                tmpFile = tempfile(fileext = paste0(""."", tools::file_ext(input)))
+"
+"1","                curl::curl_download(input, tmpFile, mode = ""wb"", 
+"
+"1","                  quiet = !showProgress)
+"
+"1","                file = tmpFile
+"
+"1","                on.exit(unlink(tmpFile), add = TRUE)
+"
+"1","            }
+"
+"1","            else if (str6 == ""ftp://"" || str7 == ""http://"" || 
+"
+"1","                str7 == ""file://"") {
+"
+"1","                method = if (str7 == ""file://"") 
+"
+"1","                  ""internal""
+"
+"1","                else getOption(""download.file.method"", default = ""auto"")
+"
+"1","                tmpFile = tempfile(fileext = paste0(""."", tools::file_ext(input)))
+"
+"1","                download.file(input, tmpFile, method = method, 
+"
+"1","                  mode = ""wb"", quiet = !showProgress)
+"
+"1","                file = tmpFile
+"
+"1","                on.exit(unlink(tmpFile), add = TRUE)
+"
+"1","            }
+"
+"1","            else if (length(grep("" "", input)) && !file.exists(input)) {
+"
+"1","                cmd = input
+"
+"1","                if (input_has_vars && getOption(""datatable.fread.input.cmd.message"", 
+"
+"1","                  TRUE)) {
+"
+"1","                  message(""Taking input= as a system command ('"", 
+"
+"1","                    cmd, ""') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure envionment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message."")
+"
+"1","                }
+"
+"1","            }
+"
+"1","            else {
+"
+"1","                file = input
+"
+"1","            }
+"
+"1","        }
+"
+"1","    }
+"
+"1","    if (!is.null(cmd)) {
+"
+"1","        (if (.Platform$OS.type == ""unix"") 
+"
+"1","            system
+"
+"1","        else shell)(paste0(""("", cmd, "") > "", tmpFile <- tempfile()))
+"
+"1","        file = tmpFile
+"
+"1","        on.exit(unlink(tmpFile), add = TRUE)
+"
+"1","    }
+"
+"1","    if (!is.null(file)) {
+"
+"1","        file_info = file.info(file)
+"
+"1","        if (is.na(file_info$size)) 
+"
+"1","            stop(""File '"", file, ""' does not exist or is non-readable. getwd()=='"", 
+"
+"1","                getwd(), ""'"")
+"
+"1","        if (isTRUE(file_info$isdir)) 
+"
+"1","            stop(""File '"", file, ""' is a directory. Not yet implemented."")
+"
+"1","        if (!file_info$size) {
+"
+"1","            warning(""File '"", file, ""' has size 0. Returning a NULL "", 
+"
+"1","                if (data.table) 
+"
+"1","                  ""data.table""
+"
+"1","                else ""data.frame"", ""."")
+"
+"1","            return(if (data.table) data.table(NULL) else data.frame(NULL))
+"
+"1","        }
+"
+"1","        ext2 = substring(file, nchar(file) - 2L, nchar(file))
+"
+"1","        ext3 = substring(file, nchar(file) - 3L, nchar(file))
+"
+"1","        if (ext2 == "".gz"" || ext3 == "".bz2"") {
+"
+"1","            if (!requireNamespace(""R.utils"", quietly = TRUE)) 
+"
+"1","                stop(""To read gz and bz2 files directly, fread() requires 'R.utils' package which cannot be found. Please install 'R.utils' using 'install.packages('R.utils')'."")
+"
+"1","            FUN = if (ext2 == "".gz"") 
+"
+"1","                gzfile
+"
+"1","            else bzfile
+"
+"1","            R.utils::decompressFile(file, decompFile <- tempfile(), 
+"
+"1","                ext = NULL, FUN = FUN, remove = FALSE)
+"
+"1","            file = decompFile
+"
+"1","            on.exit(unlink(decompFile), add = TRUE)
+"
+"1","        }
+"
+"1","        file = enc2native(file)
+"
+"1","        input = file
+"
+"1","    }
+"
+"1","    if (!missing(autostart)) 
+"
+"1","        warning(""'autostart' is now deprecated and ignored. Consider skip='string' or skip=n"")
+"
+"1","    if (is.logical(colClasses)) {
+"
+"1","        if (!all(is.na(colClasses))) 
+"
+"1","            stop(""colClasses is type 'logical' which is ok if all NA but it has some TRUE or FALSE values in it which is not allowed. Please consider the drop= or select= argument instead. See ?fread."")
+"
+"1","        colClasses = NULL
+"
+"1","    }
+"
+"1","    if (!is.null(colClasses) && is.atomic(colClasses)) {
+"
+"1","        if (!is.character(colClasses)) 
+"
+"1","            stop(""colClasses is not type list or character vector"")
+"
+"1","        if (!length(colClasses)) 
+"
+"1","            stop(""colClasses is character vector ok but has 0 length"")
+"
+"1","        if (!is.null(names(colClasses))) {
+"
+"1","            colClasses = tapply(names(colClasses), colClasses, 
+"
+"1","                c, simplify = FALSE)
+"
+"1","        }
+"
+"1","    }
+"
+"1","    stopifnot(length(skip) == 1L, !is.na(skip), is.character(skip) || 
+"
+"1","        is.numeric(skip))
+"
+"1","    if (skip == ""__auto__"") 
+"
+"1","        skip = -1L
+"
+"1","    if (is.double(skip)) 
+"
+"1","        skip = as.integer(skip)
+"
+"1","    stopifnot(is.null(na.strings) || is.character(na.strings))
+"
+"1","    tt = grep(""^\\s+$"", na.strings)
+"
+"1","    if (length(tt)) {
+"
+"1","        msg = paste0(""na.strings["", tt[1L], ""]==\"""", na.strings[tt[1L]], 
+"
+"1","            ""\"" consists only of whitespace, ignoring. "")
+"
+"1","        if (strip.white) {
+"
+"1","            if (any(na.strings == """")) {
+"
+"1","                warning(msg, ""strip.white==TRUE (default) and \""\"" is present in na.strings, so any number of spaces in string columns will already be read as <NA>."")
+"
+"1","            }
+"
+"1","            else {
+"
+"1","                warning(msg, ""Since strip.white=TRUE (default), use na.strings=\""\"" to specify that any number of spaces in a string column should be read as <NA>."")
+"
+"1","            }
+"
+"1","            na.strings = na.strings[-tt]
+"
+"1","        }
+"
+"1","        else {
+"
+"1","            stop(msg, ""But strip.white=FALSE. Use strip.white=TRUE (default) together with na.strings=\""\"" to turn any number of spaces in string columns into <NA>"")
+"
+"1","        }
+"
+"1","    }
+"
+"1","    warnings2errors = getOption(""warn"") >= 2
+"
+"1","    ans = .Call(CfreadR, input, sep, dec, quote, header, nrows, 
+"
+"1","        skip, na.strings, strip.white, blank.lines.skip, fill, 
+"
+"1","        showProgress, nThread, verbose, warnings2errors, logical01, 
+"
+"1","        select, drop, colClasses, integer64, encoding)
+"
+"1","    nr = length(ans[[1L]])
+"
+"1","    if ((!""bit64"" %chin% loadedNamespaces()) && any(sapply(ans, 
+"
+"1","        inherits, ""integer64""))) 
+"
+"1","        require_bit64()
+"
+"1","    setattr(ans, ""row.names"", .set_row_names(nr))
+"
+"1","    if (isTRUE(data.table)) {
+"
+"1","        setattr(ans, ""class"", c(""data.table"", ""data.frame""))
+"
+"1","        alloc.col(ans)
+"
+"1","    }
+"
+"1","    else {
+"
+"1","        setattr(ans, ""class"", ""data.frame"")
+"
+"1","    }
+"
+"1","    if (check.names) {
+"
+"1","        setattr(ans, ""names"", make.names(names(ans), unique = TRUE))
+"
+"1","    }
+"
+"1","    cols = NULL
+"
+"1","    if (stringsAsFactors) 
+"
+"1","        cols = which(vapply(ans, is.character, TRUE))
+"
+"1","    else if (length(colClasses)) {
+"
+"1","        if (is.list(colClasses) && ""factor"" %chin% names(colClasses)) 
+"
+"1","            cols = colClasses[[""factor""]]
+"
+"1","        else if (is.character(colClasses) && ""factor"" %chin% 
+"
+"1","            colClasses) 
+"
+"1","            cols = which(colClasses == ""factor"")
+"
+"1","    }
+"
+"1","    setfactor(ans, cols, verbose)
+"
+"1","    if (!is.null(select)) {
+"
+"1","        if (is.numeric(select)) {
+"
+"1","            reorder = frank(select)
+"
+"1","        }
+"
+"1","        else {
+"
+"1","            reorder = select[select %chin% names(ans)]
+"
+"1","        }
+"
+"1","        setcolorder(ans, reorder)
+"
+"1","    }
+"
+"1","    if (!missing(col.names)) 
+"
+"1","        setnames(ans, col.names)
+"
+"1","    if (!is.null(key) && data.table) {
+"
+"1","        if (!is.character(key)) 
+"
+"1","            stop(""key argument of data.table() must be a character vector naming columns (NB: col.names are applied before this)"")
+"
+"1","        if (length(key) == 1L) {
+"
+"1","            key = strsplit(key, split = "","", fixed = TRUE)[[1L]]
+"
+"1","        }
+"
+"1","        setkeyv(ans, key)
+"
+"1","    }
+"
+"1","    if (!is.null(index) && data.table) {
+"
+"1","        if (!all(sapply(index, is.character))) 
+"
+"1","            stop(""index argument of data.table() must be a character vector naming columns (NB: col.names are applied before this)"")
+"
+"1","        if (is.list(index)) {
+"
+"1","            to_split = sapply(index, length) == 1L
+"
+"1","            if (any(to_split)) 
+"
+"1","                index[to_split] = sapply(index[to_split], strsplit, 
+"
+"1","                  split = "","", fixed = TRUE)
+"
+"1","        }
+"
+"1","        else {
+"
+"1","            if (length(index) == 1L) {
+"
+"1","                index = strsplit(index, split = "","", fixed = TRUE)
+"
+"1","            }
+"
+"1","        }
+"
+"1","        setindexv(ans, index)
+"
+"1","    }
+"
+"1","    ans
+"
+"1","}
+"
+"1","<bytecode: 0x10d7e0158>
+"
+"1","<environment: namespace:data.table>
+"
