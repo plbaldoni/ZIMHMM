@@ -1,0 +1,29 @@
+#' ChIP-seq read counts of H3K36me3 from Huvec cells (3 replicates) of
+#' chromosome 19
+#'
+#' Data from ENCODE Project of H3K36me3 ChIP-seq experiments (3 technical
+#' replicates) from Huvec cells on chromosome 19. PCR duplicates were removed
+#' with 'samtools markdup'. Low quality reads were removed with
+#' 'samtools view -q 10'. The fragment length was estimated using correlateReads
+#' and maximizeCcf (from package csaw) after excluding blacklisted positions.
+#' Read counts were tabulated using bamCount (from package bamsignals).
+#'
+#' @docType data
+#'
+#' @usage data(H3K36me3.Huvec)
+#'
+#' @format data.table
+#'
+#' @keywords datasets
+#'
+#' @references ENCODE Project Consortium, 2004. The ENCODE (ENCyclopedia of DNA elements) project. Science, 306(5696), pp.636-640.
+#'
+#' @source
+#' \href{{http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep1.bam}
+#' \href{{http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep2.bam}
+#' \href{{http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep3.bam}
+#'
+#' @examples
+#' data(H3K36me3.Huvec)
+#' ChIP = H3K36me3.Huvec[,-c(1,2,3)]
+"H3K36me3.Huvec"
