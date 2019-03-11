@@ -18,10 +18,7 @@
 #'
 #' @references ENCODE Project Consortium, 2004. The ENCODE (ENCyclopedia of DNA elements) project. Science, 306(5696), pp.636-640.
 #'
-#' @source
-#' \href{{http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep1.bam}
-#' \href{{http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep2.bam}
-#' \href{{http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep3.bam}
+#' @source http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep1.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep2.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep3.bam
 #'
 #' @examples
 #' data(H3K36me3.Huvec)

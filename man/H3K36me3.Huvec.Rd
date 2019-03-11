@@ -6,6 +6,9 @@
 \title{ChIP-seq read counts of H3K36me3 from Huvec cells (3 replicates) of
 chromosome 19}
 \format{data.table}
+\source{
+http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep1.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep2.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep3.bam
+}
 \usage{
 data(H3K36me3.Huvec)
 }
