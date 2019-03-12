@@ -2,3 +2,4 @@
 
 export(ZIHMM)
 export(ZIMHMM)
+export(findpeaks.control)
