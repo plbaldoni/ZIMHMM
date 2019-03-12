@@ -4,16 +4,31 @@
 #'
 #' @param ChIP M*N matrix of ChIP read counts, where M is the number of windows in the analyzed genome and N is the number of replicates
 #' @param Control M*N matrix of log-transformed Control read counts
-#' @param offset M*N matrix of offsets (use offset = matrix(0,nrow=M,ncol=N) for no offset)
-#' @param control list of control arguments (use control = findpeaks.control() for default controls)
+#' @param offset M*N matrix of offsets. If no offset is used, use offset = matrix(0,nrow=M,ncol=N)
+#' @param control list of control arguments from findpeaks.control()
 #'
-#' @return None
+#' @return A list with components
+#' \item{Pi}{Vector of initial probabilities of the HMM}
+#' \item{Gamma}{Matrix of transition probabilities of the HMM}
+#' \item{Psi}{Vector of component-specific parameters of the HMM}
+#' \item{Zeroinfl}{M*N Matrix with zero-inflation probabilities}
+#' \item{Prob}{Mx2 Matrix with posterior probabilities}
+#' \item{LogF}{Mx2 Matrix with log-forward probabilities}
+#' \item{LogB}{Mx2 Matrix with log-backward probabilities}
+#' \item{Loglik}{Mx2 Matrix with window-based probabilities}
+#' \item{Parhist}{Matrix with paramater estimates across EM iterations}
+#' \item{Mean}{M*(N*2) Matrix with NB means for every replicate and HMM component. The first two columns of Mean are the background and enrichment means of replicate 1, respectively, and so on}
+#' \item{Viterbi}{Predicted sequence of Viterbi states}
 #'
 #' @author Pedro L. Baldoni, \email{pedrobaldoni@gmail.com}
 #' @references \url{https://github.com/plbaldoni/ZIMHMM}
 #'
 #' @examples
-#' ZIHMM()
+#' data(H3K36me3.Huvec)
+#' ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
+#' Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
+#' offset = matrix(colSums(ChIP),nrow = nrow(ChIP),ncol = ncol(ChIP),byrow = T)
+#' ZIHMM(ChIP = ChIP,Control = Control,offset = offset,control = findpeaks.control())
 #'
 #' @export
 #'
@@ -215,8 +230,10 @@ ZIHMM = function(ChIP,Control,offset,control)
     logB <- setnames(as.data.table(logB),c('Background','Enrichment'))
     loglik <- setnames(as.data.table(loglik),c('Background','Enrichment'))
     mu <- as.data.table(mu)
+    zeroinfl <- as.data.table(HMM.zeroinfl(csi=psi1.k[(ncolControl+2):length(psi1.k)],X.mat=as.matrix(DTvec[,grepl('Dsg',names(DTvec)),with=F]),offset.vec=DTvec[,offset],N=N,M=M))
 
     if(!quiet){cat('\nDone!\n')}
-    return(list('Pi'=pi.k1,'Gamma'=gamma.k1,'Psi'=psi.k1,'Prob'=DT[,.(PostProb1,PostProb2)],'LogF'=logF,'LogB'=logB,'Loglik'=loglik,'Parhist'=as.data.frame(do.call(rbind,parlist)),
-                'Mean'=mu,'Viterbi'=zlist[[it.em]]))
+    return(list('Pi'=pi.k1,'Gamma'=gamma.k1,'Psi'=psi.k1,
+                'Zeroinfl'=zeroinfl,'Prob'=DT[,.(PostProb1,PostProb2)],'LogF'=logF,'LogB'=logB,'Loglik'=loglik,
+                'Parhist'=as.data.frame(do.call(rbind,parlist)),'Mean'=mu,'Viterbi'=zlist[[it.em]]))
 }
