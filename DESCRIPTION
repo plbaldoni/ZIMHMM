@@ -4,8 +4,7 @@ Title: Improved Detection of Epigenetic Marks With Mixed Effects HMMs
 Version: 0.1.0
 Author: Pedro L. Baldoni
 Maintainer: Pedro L. Baldoni <pedrobaldoni@gmail.com>
-Description: Add description
-    Use four spaces when indenting paragraphs within the Description.
+Description: This package implements ZIMHMM and ZIHMM from the Biometrics paper  (under development)
 License: Add license
 Encoding: UTF-8
 LazyData: true
