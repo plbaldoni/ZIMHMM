@@ -2,42 +2,42 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 Viterbi <- function(LOGF, P, GAMMA) {
-    .Call(`_ZIMHMM_Viterbi`, LOGF, P, GAMMA)
+    .Call('_ZIMHMM_Viterbi', PACKAGE = 'ZIMHMM', LOGF, P, GAMMA)
 }
 
 hmm_logF <- function(logf1, logf2, pi, gamma) {
-    .Call(`_ZIMHMM_hmm_logF`, logf1, logf2, pi, gamma)
+    .Call('_ZIMHMM_hmm_logF', PACKAGE = 'ZIMHMM', logf1, logf2, pi, gamma)
 }
 
 hmm_logB <- function(logf1, logf2, pi, gamma) {
-    .Call(`_ZIMHMM_hmm_logB`, logf1, logf2, pi, gamma)
+    .Call('_ZIMHMM_hmm_logB', PACKAGE = 'ZIMHMM', logf1, logf2, pi, gamma)
 }
 
 hmm_P1 <- function(logF, logB) {
-    .Call(`_ZIMHMM_hmm_P1`, logF, logB)
+    .Call('_ZIMHMM_hmm_P1', PACKAGE = 'ZIMHMM', logF, logB)
 }
 
 hmm_P2 <- function(logF, logB, logf1, logf2, gamma) {
-    .Call(`_ZIMHMM_hmm_P2`, logF, logB, logf1, logf2, gamma)
+    .Call('_ZIMHMM_hmm_P2', PACKAGE = 'ZIMHMM', logF, logB, logf1, logf2, gamma)
 }
 
 my_dnbinom <- function(x, mu, size, lg) {
-    .Call(`_ZIMHMM_my_dnbinom`, x, mu, size, lg)
+    .Call('_ZIMHMM_my_dnbinom', PACKAGE = 'ZIMHMM', x, mu, size, lg)
 }
 
 MHMMmean <- function(XMAT, BETA, RANDOM, OFFSETVEC, N, M, K) {
-    .Call(`_ZIMHMM_MHMMmean`, XMAT, BETA, RANDOM, OFFSETVEC, N, M, K)
+    .Call('_ZIMHMM_MHMMmean', PACKAGE = 'ZIMHMM', XMAT, BETA, RANDOM, OFFSETVEC, N, M, K)
 }
 
 MHMMLik <- function(YVEC, ZEROINFL, MU, DISP, N, M, K) {
-    .Call(`_ZIMHMM_MHMMLik`, YVEC, ZEROINFL, MU, DISP, N, M, K)
+    .Call('_ZIMHMM_MHMMLik', PACKAGE = 'ZIMHMM', YVEC, ZEROINFL, MU, DISP, N, M, K)
 }
 
 integrand <- function(U, YVEC, XMAT, BETA, DISP, P, GAMMA, OFFSETVEC, ZEROINFL, W, SIGMA2) {
-    .Call(`_ZIMHMM_integrand`, U, YVEC, XMAT, BETA, DISP, P, GAMMA, OFFSETVEC, ZEROINFL, W, SIGMA2)
+    .Call('_ZIMHMM_integrand', PACKAGE = 'ZIMHMM', U, YVEC, XMAT, BETA, DISP, P, GAMMA, OFFSETVEC, ZEROINFL, W, SIGMA2)
 }
 
 generateHMM <- function(GAMMA, m) {
-    .Call(`_ZIMHMM_generateHMM`, GAMMA, m)
+    .Call('_ZIMHMM_generateHMM', PACKAGE = 'ZIMHMM', GAMMA, m)
 }
 
