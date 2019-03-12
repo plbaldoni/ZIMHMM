@@ -11,14 +11,27 @@ ZIMHMM(ChIP, Control, offset, random, control)
 
 \item{Control}{M*N matrix of log-transformed Control read counts}
 
-\item{offset}{M*N matrix of offsets (use offset = matrix(0,nrow=M,ncol=N) for no offset)}
+\item{offset}{M*N matrix of offsets. If no offset is used, use offset = matrix(0,nrow=M,ncol=N)}
 
 \item{random}{either 'intercept' for random intercept model or 'slope' for random slope model}
 
-\item{control}{list of control arguments (use control = findpeaks.control() for default controls)}
+\item{control}{list of control arguments from findpeaks.control()}
 }
 \value{
-None
+A list with components
+\item{Pi}{Vector of initial probabilities of the HMM}
+\item{Gamma}{Matrix of transition probabilities of the HMM}
+\item{Psi}{Vector of component-specific parameters of the HMM}
+\item{Sigma2}{Variance component}
+\item{U}{Vector of random effects}
+\item{Zeroinfl}{M*N Matrix with zero-inflation probabilities}
+\item{Prob}{Mx2 Matrix with posterior probabilities}
+\item{LogF}{Mx2 Matrix with log-forward probabilities}
+\item{LogB}{Mx2 Matrix with log-backward probabilities}
+\item{Loglik}{Mx2 Matrix with window-based probabilities}
+\item{Parhist}{Matrix with paramater estimates across EM iterations}
+\item{Mean}{M*(N*2) Matrix with NB means for every replicate and HMM component. The first two columns of Mean are the background and enrichment means of replicate 1, respectively, and so on}
+\item{Viterbi}{Predicted sequence of Viterbi states}
 }
 \description{
 This function runs ZIMHMM (under developement).
