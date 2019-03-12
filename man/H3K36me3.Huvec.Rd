@@ -3,8 +3,8 @@
 \docType{data}
 \name{H3K36me3.Huvec}
 \alias{H3K36me3.Huvec}
-\title{ChIP-seq read counts of H3K36me3 from Huvec cells (3 replicates) of
-chromosome 19}
+\title{ChIP-seq (and control) read counts of H3K36me3 from Huvec cells (3 replicates) of
+chromosome 19.}
 \format{data.table}
 \source{
 http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep1.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep2.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep3.bam
@@ -13,7 +13,7 @@ http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wg
 data(H3K36me3.Huvec)
 }
 \description{
-Data from ENCODE Project of H3K36me3 ChIP-seq experiments (3 technical
+Data from ENCODE Project of H3K36me3 (and control) ChIP-seq experiments (3 technical
 replicates) from Huvec cells on chromosome 19. PCR duplicates were removed
 with 'samtools markdup'. Low quality reads were removed with
 'samtools view -q 10'. The fragment length was estimated using correlateReads
