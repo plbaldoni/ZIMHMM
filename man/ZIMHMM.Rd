@@ -34,7 +34,7 @@ A list with components
 \item{Viterbi}{Predicted sequence of Viterbi states}
 }
 \description{
-This function runs ZIMHMM (under developement).
+This function runs ZIMHMM (under development).
 }
 \examples{
 ZIMHMM()

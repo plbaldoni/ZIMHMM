@@ -1,6 +1,6 @@
 #' Zero Inflated Mixed Effects Hidden Markov Model (ZIMHMM)
 #'
-#' This function runs ZIMHMM (under developement).
+#' This function runs ZIMHMM (under development).
 #'
 #' @param ChIP M*N matrix of ChIP read counts, where M is the number of windows in the analyzed genome and N is the number of replicates
 #' @param Control M*N matrix of log-transformed Control read counts
