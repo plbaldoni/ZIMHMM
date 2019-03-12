@@ -7,7 +7,7 @@
 chromosome 19.}
 \format{data.table}
 \source{
-http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep1.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep2.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep3.bam
+http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep1.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep2.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecH3k36me3StdAlnRep3.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecControlStdAlnRep1.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecControlStdAlnRep2.bam http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneHuvecControlStdAlnRep3.bam
 }
 \usage{
 data(H3K36me3.Huvec)
@@ -22,7 +22,8 @@ Read counts were tabulated using bamCount (from package bamsignals).
 }
 \examples{
 data(H3K36me3.Huvec)
-ChIP = H3K36me3.Huvec[,-c(1,2,3)]
+ChIP = H3K36me3.Huvec[,c('H3K36me3.Huvec.Rep1','H3K36me3.Huvec.Rep2','H3K36me3.Huvec.Rep3')]
+Control = H3K36me3.Huvec[,c('Control.Huvec.Rep1','Control.Huvec.Rep2','Control.Huvec.Rep3')]
 }
 \references{
 ENCODE Project Consortium, 2004. The ENCODE (ENCyclopedia of DNA elements) project. Science, 306(5696), pp.636-640.
