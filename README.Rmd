@@ -14,8 +14,8 @@ knitr::opts_chunk$set(
 ```
 # ZIMHMM
 
-The goal of ZIMHMM (Zero Inflated Mixed effects Hidden Mark Model) is to provide a peak caller
-tailored to detect broad enrichment regions from multiple ChIP-seq experimental replicates. This (under development) package implements `ZIMHMM()` as well as the fixed effects version `ZIHMM()`.
+ZIMHMM (Zero Inflated Mixed effects Hidden Mark Model) is a package with a peak caller to detect broad enrichment regions from multiple ChIP-seq experimental replicates. `ZIMHMM()` models the zero-inflation of background counts (ZI), accounts for replicate-specific differences via a mixed effects model (M), and ensures that broad regions of enrichment are detected by fitting a hidden Markov model (HMM). This package also contains `ZIHMM()`, a fixed effects version of the peak caller. The function 'findpeaks.control()' provides parameters that control the Expectation-Maximization (EM) algorithm from the presented peak callers. Please refer to their documentation (e.g. `?ZIMHMM::ZIMHMM`) for details.
+
 
 ## Installation
 
@@ -27,9 +27,7 @@ devtools::install_github("plbaldoni/ZIMHMM")
 
 ## Example
 
-The package contains an example dataset with H3K36me3 ChIP-seq read counts (with input controls) from chromosome 19 of Huvec cell lines tabulated using 500bp windows (ENCODE Projec). It contains only three functions available for the user: 'ZIMHMM', 'ZIHMM', and 'findpeaks.control'. Please refer to their documentation for details.
-
-An example of ZIMHMM is shown below.
+The package contains an example dataset with H3K36me3 ChIP-seq (and input control) read counts from chromosome 19 of three technical replicates of Huvec cell line (ENCODE Consortium). Reads were tabulated using 500bp non-overlapping windows. An example of ZIMHMM is shown below.
 
 ```{r example,eval=F,echo=T}
 # Loading example dataset
