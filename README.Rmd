@@ -27,7 +27,7 @@ devtools::install_github("plbaldoni/ZIMHMM")
 
 ## Example
 
-The package contains an example dataset with H3K36me3 ChIP-seq read counts (with input controls) from chromosome 19 of Huvec cell lines tabulated using 500bp windows (ENCODE Projec). It contains only three functions available for the user: 'ZIMHMM', 'ZIHMM', and 'findpeaks.control()'. Please refer to their documentation for details.
+The package contains an example dataset with H3K36me3 ChIP-seq read counts (with input controls) from chromosome 19 of Huvec cell lines tabulated using 500bp windows (ENCODE Projec). It contains only three functions available for the user: 'ZIMHMM', 'ZIHMM', and 'findpeaks.control'. Please refer to their documentation for details.
 
 An example of ZIMHMM is shown below.
 
