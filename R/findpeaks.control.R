@@ -33,6 +33,7 @@
 #' control = findpeaks.control(maxit.em = 100)
 #' ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = control)
 #'
+#' @useDynLib ZIMHMM
 #' @export
 #'
 findpeaks.control = function(epsilon.em=c(1e-3,1e-3,1e-3,1e-3),epsilon.inner.em=1e-03,maxit.em=500,

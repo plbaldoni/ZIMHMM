@@ -3,3 +3,4 @@
 export(ZIHMM)
 export(ZIMHMM)
 export(findpeaks.control)
+useDynLib(ZIMHMM)
