@@ -3,4 +3,5 @@
 export(ZIHMM)
 export(ZIMHMM)
 export(findpeaks.control)
+importFrom(Rcpp,evalCpp)
 useDynLib(ZIMHMM)

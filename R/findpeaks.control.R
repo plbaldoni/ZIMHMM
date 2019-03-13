@@ -30,10 +30,12 @@
 #' ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
 #' Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
 #' offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP))
+#' # Setting maxit.em = 100 (no more than 100 EM iterations)
 #' control = findpeaks.control(maxit.em = 100)
 #' ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = control)
 #'
 #' @useDynLib ZIMHMM
+#' @importFrom Rcpp evalCpp
 #' @export
 #'
 findpeaks.control = function(epsilon.em=c(1e-3,1e-3,1e-3,1e-3),epsilon.inner.em=1e-03,maxit.em=500,
