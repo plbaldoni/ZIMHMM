@@ -28,7 +28,7 @@
 #' ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
 #' Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
 #' offset = matrix(log(colSums(ChIP)),nrow = nrow(ChIP),ncol = ncol(ChIP),byrow = TRUE)
-#' ZIHMM(ChIP = ChIP,Control = Control,offset = offset,control = findpeaks.control(epsilon.em = 1e-3,criterion = 'MRCPE'))
+#' \dontrun{ZIHMM(ChIP = ChIP,Control = Control,offset = offset,control = findpeaks.control(epsilon.em = 1e-3,criterion = 'MRCPE'))}
 #'
 #' @export
 #'

@@ -30,4 +30,9 @@ offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP))
 
 # Calling peaks
 peakcall = ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = findpeaks.control())
+
+# Plotting peak calls
+plotpeaks(peakcall,ranges = c(20000,20400),ChIP = ChIP)
 ```
+
+<img src="man/figures/README-example-1.png" width="100%" />
