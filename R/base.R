@@ -55,7 +55,7 @@ createOffset = function(ChIP,method='sum',span=1,plots=F,dirplot=NULL){
     }
     if(method=='loess'){
         log.ChIP = log(ChIP+1)
-        avg.ChIP = exp(rowMeans(log.ChIP)) #This is different than Love's approach, where widows with 0 counts are discarded in the geometric mean
+        avg.ChIP = exp(rowMeans(log.ChIP))
         log.avg.ChIP = log(avg.ChIP)
 
         log.ChIP.M = log.ChIP - matrix(log.avg.ChIP,nrow=M,ncol=N,byrow = F) #M, from MA plot
@@ -80,7 +80,7 @@ createOffset = function(ChIP,method='sum',span=1,plots=F,dirplot=NULL){
     }
     if(method=='ratio'){
         log.ChIP = log(ChIP+1)
-        avg.ChIP = exp(rowMeans(log.ChIP)) #This is different than Love's approach, where widows with 0 counts are discarded in the geometric mean
+        avg.ChIP = exp(rowMeans(log.ChIP))
         log.avg.ChIP = log(avg.ChIP)
 
         log.ChIP.M = log.ChIP - matrix(log.avg.ChIP,nrow=M,ncol=N,byrow = F) #M, from MA plot
@@ -133,11 +133,6 @@ HMM.chain = function(z,K){
     MC = as.matrix(MC/rowSums(MC))
     MC = matrix(MC,ncol=ncol(MC),nrow=nrow(MC),byrow=F)
     MC = check.prob(MC)
-    # for(i in 1:ncol(MC))
-    # {
-    #     MC[i,ncol(MC)] = 1-sum(MC[i,1:(ncol(MC)-1)])
-    #     MC[i,ncol(MC)] = ifelse(MC[i,ncol(MC)]>=1,1-epsilon.0,ifelse(MC[i,ncol(MC)]<=0,epsilon.0,MC[i,ncol(MC)]))
-    # }
     return(MC)
 }
 
@@ -221,46 +216,14 @@ HMM.LL = function(Y.vec,mu,N,M,K,model,disp=NULL,zeroinfl=NULL,min.zero=.Machine
 }
 
 check.prob = function(P){
-    # K=ncol(P);M=nrow(P)
-    # for(k in 1:K){
-    #     P[,k] = pmax(pmin(P[,k],1),0)
-    # }
-    # if(K==2){P[,K] = 1 - P[,1]}
-    # if(K>2){P[,K] = 1 - rowSums(P[,1:(K-1)])}
-    # P = P/matrix(rowSums(P),nrow=M,ncol=K,byrow=F)
     P = pmax(pmin(P,1),0)
     return(P/rowSums(P))
 }
 
 HMM.prob = function(dt){
-    # K=ncol(P1)
-    # #Adjusting Initial Probabilities
-    # pi=NULL
-    # for(i in 1:(K-1)){
-    #     assign(paste0('pi',i),ifelse(P1[1,i]>=1,1-epsilon.0,ifelse(P1[1,i]<=0,epsilon.0,P1[1,i])))
-    #     pi = c(pi,get(paste0('pi',i)))
-    # }
-    # assign(paste0('pi',K),1-sum(pi))
-    # assign(paste0('pi',K),ifelse(get(paste0('pi',K))>=1,1-epsilon.0,ifelse(get(paste0('pi',K))<=0,epsilon.0,get(paste0('pi',K)))))
-    # pi = c(pi,get(paste0('pi',K)))
     pi <- dt[1,c(PostProb1,PostProb2)]
     gamma <- unname(check.prob(as.matrix(t(dt[,.(c(sum(JoinProb11,na.rm=T),sum(JoinProb12,na.rm=T))/sum(JoinProb11+JoinProb12,na.rm=T),
                                                 c(sum(JoinProb21,na.rm=T),sum(JoinProb22,na.rm=T))/sum(JoinProb21+JoinProb22,na.rm=T))]))))
-
-    # #Adjusting Transition Probabilities
-    # gamma = matrix(0,nrow=K,ncol=K)
-    # for(i in 1:K){
-    #     idx = i*K-(K-1):0
-    #     aux.gamma=NULL
-    #     for(j in 1:(K-1)){
-    #         assign(paste0('gamma',i,j),sum(P2[,idx[j]],na.rm=T)/sum(P2[,idx],na.rm=T))
-    #         aux.gamma = c(aux.gamma,get(paste0('gamma',i,j)))
-    #     }
-    #     assign(paste0('gamma',i,K),1-sum(aux.gamma))
-    #     assign(paste0('gamma',i,K),ifelse(get(paste0('gamma',i,K))>=1,1-epsilon.0,ifelse(get(paste0('gamma',i,K))<=0,epsilon.0,get(paste0('gamma',i,K)))))
-    #     aux.gamma = c(aux.gamma,get(paste0('gamma',i,K)))
-    #     gamma[i,] = aux.gamma
-    # }
     return(list('pi'=pi,'gamma'=gamma))
 }
 
