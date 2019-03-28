@@ -45,7 +45,7 @@ agg = function(data,data.unique,rows,agg,random=F){
     # return(data[eval(parse(text=rows)),][,.(weights=sum(get(agg))),by=eval(names(data)[!grepl('^PostProb|^JoinProb|^Rejection',names(data))])])
 }
 
-createOffset = function(ChIP,method='sum',span=1,plots=F,dirplot=NULL){
+createOffset = function(ChIP,method='sum',span=0.3,plots=F,dirplot=NULL){
     N = ncol(ChIP)
     M = nrow(ChIP)
     offset = matrix(NA,nrow=M,ncol=N)
@@ -64,18 +64,6 @@ createOffset = function(ChIP,method='sum',span=1,plots=F,dirplot=NULL){
         # Calculating Loess
         offset = sapply(1:N,function(i){limma::loessFit(y=log.ChIP.M[,i],x=log.ChIP.A[,i],span = span)$fitted})
 
-        #Plotting the results
-        if(plots){
-            for(i in 1:N){
-                o = order(log.ChIP.A[,i])
-
-                pdf(paste0(dirplot,'/Sample',i,'.pdf'))
-                smoothScatter(log.ChIP.M[,i]~log.ChIP.A[,i],main=paste0('Sample: ',i),xlab='Average',ylab='Minus')
-                abline(h=0,col='red',lwd=3)
-                lines(log.ChIP.A[o,i],offset[o,i],col='blue',lwd=3)
-                dev.off()
-            }
-        }
         return(offset)
     }
     if(method=='ratio'){
@@ -90,16 +78,6 @@ createOffset = function(ChIP,method='sum',span=1,plots=F,dirplot=NULL){
         medianRatio = apply(log.ChIP.M,2,median)
         offset = matrix(medianRatio,nrow = M,ncol = N,byrow = T)
 
-        #Plotting the results
-        if(plots){
-            for(i in 1:N){
-                pdf(paste0(dirplot,'/Sample',i,'.pdf'))
-                smoothScatter(log.ChIP.M[,i]~log.ChIP.A[,i],main=paste0('Sample: ',i),xlab='Average',ylab='Minus')
-                abline(h=0,col='red',lwd=3)
-                abline(h=medianRatio[i],col='blue',lwd=3)
-                dev.off()
-            }
-        }
         return(offset)
     }
 }
