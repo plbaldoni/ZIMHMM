@@ -8,7 +8,7 @@ Description: This package implements ZIMHMM and ZIHMM from the Biometrics paper 
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: Rcpp (>= 0.12.18), RcppArmadillo, csaw, GenomicRanges, IRanges, Rsamtools, bamsignals, SummarizedExperiment, GenomeInfoDb, RColorBrewer, Biobase, minqa, limma, Matrix, RColorBrewer, tidyr, dplyr, plyr, ggpubr, scales
-Depends: R (>= 2.10), data.table, ggplot2
+Imports: Rcpp (>= 0.12.18), RcppArmadillo, csaw, GenomicRanges, IRanges, Rsamtools, bamsignals, SummarizedExperiment, GenomeInfoDb, RColorBrewer, Biobase, minqa, Matrix, RColorBrewer, tidyr, dplyr, plyr, ggpubr, scales
+Depends: R (>= 2.10), data.table, ggplot2, limma
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 6.1.1

@@ -6,24 +6,29 @@
 \usage{
 createOffset(ChIP, method = "sum", span = 0.3)
 }
+\arguments{
+\item{ChIP}{M*N matrix of ChIP read counts, where M is the number of windows in the analyzed genome and N is the number of experiments and replicates}
+
+\item{method}{either total sum of read counts (method="sum"), smoothed MA trend (method="loess"), or median ratio (method="ratio").}
+
+\item{span}{proportion of data to be used in the smoothing (see loessFit from limma, default 0.3)}
+}
+\value{
+M*N matrix of offsets
+}
 \description{
 This function create offsets for peak calling. The current implementation (under development) can output three different set of offsets:
- total sum of read counts (`method='sum'`), smoothed MA trend (`method='loess'`, similar to `csaw`), or median ratio (`method='ratio'`, similar to `DESeq2`).
+total sum of read counts (method="sum"), smoothed MA trend (method="loess", similar to csaw), or median ratio (method="ratio", similar to DESeq2).
 }
-\details{
-@param ChIP M*N matrix of ChIP read counts, where M is the number of windows in the analyzed genome and N is the number of experiments and replicates
- @param method either total sum of read counts (`method='sum'`), smoothed MA trend (`method='loess'`), or median ratio (`method='ratio'`).
- @param span proportion of data to be used in the smoothing (see `limma::loessFit`, default 0.3)
+\examples{
+data(H3K36me3.Huvec)
+ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
+offset = createOffset(ChIP,method="loess")
 
-@return M*N matrix of offsets
-
-@author Pedro L. Baldoni, \email{pedrobaldoni@gmail.com}
- @references \url{https://github.com/plbaldoni/ZIMHMM}
-
-@examples
- data(H3K36me3.Huvec)
- ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
- offset = createOffset(ChIP,method='loess')
-
-@export
+}
+\references{
+\url{https://github.com/plbaldoni/ZIMHMM}
+}
+\author{
+Pedro L. Baldoni, \email{pedrobaldoni@gmail.com}
 }

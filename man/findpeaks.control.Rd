@@ -55,7 +55,7 @@ Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Re
 offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP))
 # Setting maxit.em = 100 (no more than 100 EM iterations)
 control = findpeaks.control(maxit.em = 100)
-ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = control)
+\dontrun{ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = control)}
 
 }
 \references{

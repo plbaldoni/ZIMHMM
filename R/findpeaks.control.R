@@ -32,7 +32,7 @@
 #' offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP))
 #' # Setting maxit.em = 100 (no more than 100 EM iterations)
 #' control = findpeaks.control(maxit.em = 100)
-#' ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = control)
+#' \dontrun{ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = control)}
 #'
 #' @useDynLib ZIMHMM
 #' @importFrom Rcpp evalCpp
