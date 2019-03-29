@@ -56,7 +56,7 @@ HMM = function(ChIP.init,Control.init,offset.init,pcut=0.05,epsilon.em=1e-3,maxi
 
     # Transforming data into data.table and calculating scores
     if(is.null(Control.init)){
-        dt <- data.table(ChIP = ChIP.init,Dsg.Int = 1,offset = offset.init,PostProb1 = 1,PostProb2 = 1,JoinProb11 = 1,JoinProb12 = 1,JoinProb21 = 1,JoinProb22 = 1)
+        dt <- data.table::data.table(ChIP = ChIP.init,Dsg.Int = 1,offset = offset.init,PostProb1 = 1,PostProb2 = 1,JoinProb11 = 1,JoinProb12 = 1,JoinProb21 = 1,JoinProb22 = 1)
         Score = dt[,scale(log(ChIP+1))]
         ncolControl = 1
         namesControl = gsub('Dsg.','',names(dt)[grepl('Dsg',names(dt))])
@@ -68,7 +68,7 @@ HMM = function(ChIP.init,Control.init,offset.init,pcut=0.05,epsilon.em=1e-3,maxi
         dt.unique <- unique(dt,by='Group')[,c('ChIP','Dsg.Int','offset','Group')]
         setkey(dt.unique,Group)
     } else{
-        dt <- data.table(ChIP = ChIP.init,Dsg.Int = 1,Dsg.Control = Control.init,offset = offset.init,PostProb1 = 1,PostProb2 = 1,JoinProb11 = 1,JoinProb12 = 1,JoinProb21 = 1,JoinProb22 = 1)
+        dt <- data.table::data.table(ChIP = ChIP.init,Dsg.Int = 1,Dsg.Control = Control.init,offset = offset.init,PostProb1 = 1,PostProb2 = 1,JoinProb11 = 1,JoinProb12 = 1,JoinProb21 = 1,JoinProb22 = 1)
         Score = dt[,scale(log(ChIP+1)-Dsg.Control)]
         ncolControl = 2
         namesControl = gsub('Dsg.','',names(dt)[grepl('Dsg',names(dt))])
