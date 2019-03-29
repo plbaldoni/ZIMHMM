@@ -82,11 +82,11 @@ ZIHMM = function(ChIP,Control,offset,control)
     # Parameter initializations
     if(!quiet){cat(paste0(c(rep('#',45),'\n')));cat("Algorithm initialization...\n")}
     if(is.null(Control)){
-        model.list = HMM.init(ChIP.init=DT[,rowSums(.SD),.SDcols = paste0('ChIP.',1:N)],
-                              Control=NULL,
+        model.list = HMM(ChIP.init=DT[,rowSums(.SD),.SDcols = paste0('ChIP.',1:N)],
+                              Control.init=NULL,
                               offset.init=DT[,rowMeans(.SD),.SDcols = paste0('offset.',1:N)],pcut=pcut)
     } else{
-        model.list = HMM.init(ChIP.init=DT[,rowSums(.SD),.SDcols = paste0('ChIP.',1:N)],
+        model.list = HMM(ChIP.init=DT[,rowSums(.SD),.SDcols = paste0('ChIP.',1:N)],
                               Control.init=DT[,rowMeans(.SD),.SDcols = paste0('Dsg.Control.',1:N)],
                               offset.init=DT[,rowMeans(.SD),.SDcols = paste0('offset.',1:N)],pcut=pcut)
     }
