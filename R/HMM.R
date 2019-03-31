@@ -126,7 +126,7 @@ HMM = function(ChIP.init,Control.init,offset.init,pcut=0.05,epsilon.em=1e-3,maxi
         psi2.k = theta.k[paste0('HMM2.',c(namesControl,'Disp'))]
 
         # E-step
-        mu <- HMM.mean(X.mat=as.matrix(dt[,grepl('Dsg',names(dt)),with=F]),offset.vec=dt[,offset],psi=rbind(psi1.k,psi2.k)[,1:ncolControl],N=N,M=M)
+        mu <- HMM.mean(X.mat=as.matrix(dt[,grepl('Dsg',names(dt)),with=F]),offset.vec=dt[,offset],psi=as.matrix(rbind(psi1.k,psi2.k)[,1:ncolControl]),N=N,M=M)
         loglik <- HMM.LL(Y.vec=dt[,ChIP],mu=mu,disp=rbind(psi1.k,psi2.k)[,(ncolControl+1)],N=N,M=M,K=K,model='nb')
 
         # Forward-Backward probabilities

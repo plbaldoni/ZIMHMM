@@ -115,7 +115,7 @@ HMM.chain = function(z,K){
 }
 
 HMM.mean = function(X.mat,offset.vec,psi,N,M,min.zero=min.zero,U=NULL,random=NULL){
-    K=nrow(as.matrix(psi))#nrow(psi)
+    K=nrow(psi)
     mu = matrix(0,nrow=M,ncol=N*K)
     for(k in 1:K){
         mu[,k+0:(N-1)*K] = matrix(exp(X.mat%*%psi[k,]+offset.vec),nrow=M,ncol=N,byrow=F)
