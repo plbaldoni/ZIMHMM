@@ -138,7 +138,7 @@ ZIHMM = function(ChIP,Control,offset,control)
         psi2.k = theta.k[paste0('HMM2.',c(namesControl,'Disp'))]
 
         # E-step
-        mu <- HMM.mean(X.mat=as.matrix(DTvec[,grepl('Dsg',names(DTvec)),with=F]),offset.vec=DTvec[,offset],psi=rbind(psi1.k[1:ncolControl],psi2.k[1:ncolControl]),N=N,M=M)
+        mu <- HMM.mean(X.mat=as.matrix(DTvec[,grepl('Dsg',names(DTvec)),with=F]),offset.vec=DTvec[,offset],psi=as.matrix(rbind(psi1.k[1:ncolControl],psi2.k[1:ncolControl])),N=N,M=M)
         zeroinfl <- HMM.zeroinfl(csi=psi1.k[(ncolControl+2):length(psi1.k)],X.mat=as.matrix(DTvec[,grepl('Dsg',names(DTvec)),with=F]),offset.vec=DTvec[,offset],N=N,M=M)
         loglik <- HMM.LL(Y.vec=DTvec[,ChIP],mu=mu,N=N,M=M,K=K,zeroinfl=zeroinfl,disp=c(psi1.k[ncolControl+1],psi2.k[ncolControl+1]),model='zinb')
 
