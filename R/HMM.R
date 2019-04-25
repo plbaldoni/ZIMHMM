@@ -39,6 +39,8 @@
 #' offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP),byrow = TRUE)
 #' \dontrun{HMM(ChIP.init = rowSums(ChIP),Control.init = rowMeans(Control),offset.init = rowMeans(offset))}
 #'
+#' @importFrom data.table copy
+#'
 #' @export
 #'
 HMM = function(ChIP.init,Control.init,offset.init,pcut=0.05,epsilon.em=1e-3,maxit.em=5,minit.em=3,gap.em=3,maxcount.em=3,max.phi=1e3,min.zero=.Machine$double.xmin,quant=0.75,quiet=F){
