@@ -17,7 +17,7 @@ createOffset(ChIP, method = "sum", span = 0.3)
 M*N matrix of offsets
 }
 \description{
-This function create offsets for peak calling. The current implementation (under development) can output three different set of offsets:
+This function create offsets for peak calling. The current implementation can output three different set of offsets:
 total sum of read counts (method="sum"), smoothed MA trend (method="loess", similar to csaw), or median ratio (method="ratio", similar to DESeq2).
 }
 \examples{

@@ -15,7 +15,7 @@ ZIMHMM(ChIP, Control, offset, random, control)
 
 \item{random}{either 'intercept' for random intercept model or 'slope' for random slope model}
 
-\item{control}{list of control arguments from findpeaks.control()}
+\item{control}{list of control arguments from controlPeaks()}
 }
 \value{
 A list with components
@@ -34,14 +34,14 @@ A list with components
 \item{Viterbi}{Predicted sequence of Viterbi states}
 }
 \description{
-This function runs ZIMHMM (under development).
+This function runs ZIMHMM.
 }
 \examples{
 data(H3K36me3.Huvec)
 ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
 Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
 offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP))
-\dontrun{ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = findpeaks.control())}
+\dontrun{ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = controlPeaks())}
 
 }
 \references{

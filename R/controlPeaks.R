@@ -31,14 +31,14 @@
 #' Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
 #' offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP))
 #' # Setting maxit.em = 100 (no more than 100 EM iterations)
-#' control = findpeaks.control(maxit.em = 100)
+#' control = controlPeaks(maxit.em = 100)
 #' \dontrun{ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = control)}
 #'
 #' @useDynLib ZIMHMM
 #' @importFrom Rcpp evalCpp
 #' @export
 #'
-findpeaks.control = function(epsilon.em=c(1e-3,1e-3,1e-3,1e-3),epsilon.inner.em=1e-03,maxit.em=500,
+controlPeaks = function(epsilon.em=c(1e-3,1e-3,1e-3,1e-3),epsilon.inner.em=1e-03,maxit.em=500,
                              minit.em=3,gap.em=3,maxcount.em=3,max.phi=1e3,min.sigma2=1e-08,
                              max.sigma2=10,maxcount.inner.em=50,criterion='MULTI',
                              min.zero=.Machine$double.xmin,pcut=0.05,

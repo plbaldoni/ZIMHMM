@@ -1,6 +1,6 @@
 #' Create Offsets for Peak Calling
 #'
-#' This function create offsets for peak calling. The current implementation (under development) can output three different set of offsets:
+#' This function create offsets for peak calling. The current implementation can output three different set of offsets:
 #' total sum of read counts (method="sum"), smoothed MA trend (method="loess", similar to csaw), or median ratio (method="ratio", similar to DESeq2).
 #'
 #' @param ChIP M*N matrix of ChIP read counts, where M is the number of windows in the analyzed genome and N is the number of experiments and replicates

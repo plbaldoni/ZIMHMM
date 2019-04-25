@@ -1,12 +1,12 @@
 #' Zero Inflated Mixed Effects Hidden Markov Model (ZIMHMM)
 #'
-#' This function runs ZIMHMM (under development).
+#' This function runs ZIMHMM.
 #'
 #' @param ChIP M*N matrix of ChIP read counts, where M is the number of windows in the analyzed genome and N is the number of replicates
 #' @param Control M*N matrix of log-transformed Control read counts
 #' @param offset M*N matrix of offsets. If no offset is used, use offset = matrix(0,nrow=M,ncol=N)
 #' @param random either 'intercept' for random intercept model or 'slope' for random slope model
-#' @param control list of control arguments from findpeaks.control()
+#' @param control list of control arguments from controlPeaks()
 #'
 #' @return A list with components
 #' \item{Pi}{Vector of initial probabilities of the HMM}
@@ -31,7 +31,7 @@
 #' ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
 #' Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
 #' offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP))
-#' \dontrun{ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = findpeaks.control())}
+#' \dontrun{ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = controlPeaks())}
 #'
 #' @export
 #'

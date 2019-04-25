@@ -13,7 +13,7 @@ ZIHMM(ChIP, Control, offset, control)
 
 \item{offset}{M*N matrix of offsets. If no offset is used, use offset = matrix(0,nrow=M,ncol=N)}
 
-\item{control}{list of control arguments from findpeaks.control()}
+\item{control}{list of control arguments from controlPeaks()}
 }
 \value{
 A list with components
@@ -30,14 +30,14 @@ A list with components
 \item{Viterbi}{Predicted sequence of Viterbi states}
 }
 \description{
-This function runs ZIHMM (under developement).
+This function runs ZIHMM.
 }
 \examples{
 data(H3K36me3.Huvec)
 ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
 Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
 offset = matrix(log(colSums(ChIP)),nrow = nrow(ChIP),ncol = ncol(ChIP),byrow = TRUE)
-\dontrun{ZIHMM(ChIP = ChIP,Control = Control,offset = offset,control = findpeaks.control(epsilon.em = 1e-3,criterion = 'MRCPE'))}
+\dontrun{ZIHMM(ChIP = ChIP,Control = Control,offset = offset,control = controlPeaks(epsilon.em = 1e-3,criterion = 'MRCPE'))}
 
 }
 \references{
