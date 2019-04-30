@@ -34,18 +34,38 @@ below.
 
 ``` r
 # Loading example dataset
-data(H3K36me3.Huvec)
+data(Huvec)
 
 # ChIP and Control read counts, as well as the model offset.
-ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
-Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
+ChIP = assay(Huvec,'ChIP')
+Control = log(assay(Huvec,'Control')+1)
 offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP))
 
 # Calling peaks
 peakcall = ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'intercept',control = controlPeaks())
-
-# Plotting peak calls
-plotPeaks(peakcall,ranges = c(20000,20400),ChIP = ChIP) 
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+## Post-processing
+
+The current implementation of `ZIMHMM` contains two functions for data
+visualization. The first function is `plotPeaks`, which plots the
+ChIP-seq read counts, called peaks from `ZIMHMM`, and the associated
+window-based posterior probabilities of enrichment. The input data
+should be formatted as a `RangedSummarizedExperiment` object (such as
+the example dataset Huvec).
+
+``` r
+# Plotting peak calls
+plotPeaks(output = peakcall,chr = 'chr19',ranges = c(16898093,17040483),data = Huvec)
+```
+
+<img src="man/figures/README-plots-1.png" width="100%" />
+
+The second function is `makeBed`, which outputs a BED file that can be
+used for visualization elsewhere (such as the UCSC Genome Browser -
+<https://genome.ucsc.edu/>).
+
+``` r
+# Exporting peak calls
+makeBed(peakcall, data = Huvec,file = './HuvecH3K36me3.bed')
+```
