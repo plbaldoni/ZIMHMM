@@ -13,8 +13,8 @@
 #' @references \url{https://github.com/plbaldoni/ZIMHMM}
 #'
 #' @examples
-#' data(H3K36me3.Huvec)
-#' ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
+#' data(Huvec)
+#' ChIP = SummarizedExperiment::assay(Huvec,'ChIP')
 #' offset = createOffset(ChIP,method="loess")
 #'
 #' @importFrom limma loessFit

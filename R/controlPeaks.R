@@ -26,9 +26,9 @@
 #' @references \url{https://github.com/plbaldoni/ZIMHMM}
 #'
 #' @examples
-#' data(H3K36me3.Huvec)
-#' ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
-#' Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
+#' data(Huvec)
+#' ChIP = SummarizedExperiment::assay(Huvec,'ChIP')
+#' Control = log(SummarizedExperiment::assay(Huvec,'Control')+1)
 #' offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP))
 #' # Setting maxit.em = 100 (no more than 100 EM iterations)
 #' control = controlPeaks(maxit.em = 100)
@@ -43,7 +43,7 @@ controlPeaks = function(epsilon.em=c(1e-3,1e-3,1e-3,1e-3),epsilon.inner.em=1e-03
                              max.sigma2=10,maxcount.inner.em=50,criterion='MULTI',
                              min.zero=.Machine$double.xmin,pcut=0.05,
                              quiet=F){
-    if (!is.numeric(epsilon.em) || epsilon.em <= 0){stop("value of 'epsilon.em' must be > 0")}
+    if (any(!(epsilon.em>0))){stop("value of 'epsilon.em' must be > 0")}
     if (!maxit.em%%1==0 || maxit.em <= 0){stop("value of 'maxit.em' must be a positive integer")}
     if (!minit.em%%1==0 || minit.em <= 0){stop("value of 'minit.em' must be a positive integer")}
     if (!gap.em%%1==0 || gap.em <= 0 || gap.em>minit.em){stop("value of 'gap.em' must be a positive integer <= minit.em")}
