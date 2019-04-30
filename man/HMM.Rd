@@ -54,9 +54,9 @@ A list with components
 This function runs a 2-state HMM with negative binomial emissions. It is used for parameter initialization in ZIMHMM and ZIHMM.
 }
 \examples{
-data(H3K36me3.Huvec)
-ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
-Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
+data(Huvec)
+ChIP = SummarizedExperiment::assay(Huvec,'ChIP')
+Control = log(SummarizedExperiment::assay(Huvec,'Control')+1)
 offset = matrix(0,nrow = nrow(ChIP),ncol = ncol(ChIP),byrow = TRUE)
 \dontrun{HMM(ChIP.init = rowSums(ChIP),Control.init = rowMeans(Control),offset.init = rowMeans(offset))}
 

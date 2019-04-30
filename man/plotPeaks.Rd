@@ -4,14 +4,16 @@
 \alias{plotPeaks}
 \title{Create a plot of ChIP read counts with called peaks and posterior probabilities}
 \usage{
-plotPeaks(output, ranges, ChIP, peaks = NULL)
+plotPeaks(output, chr, ranges, data, peaks = NULL)
 }
 \arguments{
 \item{output}{Either an output from `ZIMHMM()` or `ZIHMM()`}
 
+\item{chr}{A string with the chromosome name to be displayed (such as 'chr19')}
+
 \item{ranges}{A vector with two elements that specifies the genomic windows to be plotted.}
 
-\item{ChIP}{M*N matrix of ChIP read counts, where M is the number of windows in the analyzed genome and N is the number of replicates}
+\item{data}{A RangedSummarizedExperiment object with the same assay (with the `ChIP` counts) used in `ZIMHMM()`}
 
 \item{peaks}{An optional vector of length M with zeros (background) and ones (peaks) representing the enriched windows. If not provided,
 `plotPeaks()` will use the Viterbi sequence from `output`.}
@@ -24,12 +26,12 @@ A ggplot
 calls of a given genomic region.
 }
 \examples{
-data(H3K36me3.Huvec)
-ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
-Control = log(as.matrix(H3K36me3.Huvec[,c("Control.Huvec.Rep1","Control.Huvec.Rep2","Control.Huvec.Rep3")])+1)
+data(Huvec)
+ChIP = SummarizedExperiment::assay(Huvec,'ChIP')
+Control = log(SummarizedExperiment::assay(Huvec,'Control')+1)
 offset = matrix(log(colSums(ChIP)),nrow = nrow(ChIP),ncol = ncol(ChIP),byrow = TRUE)
 \dontrun{output = ZIHMM(ChIP = ChIP,Control = Control,offset = offset,control = controlPeaks(epsilon.em = 1e-3,criterion = 'MRCPE'))}
-\dontrun{plotPeaks(output = output,ranges = c(1000,2000),ChIP = ChIP)}
+\dontrun{plotPeaks(output = output,chr = 'chr19',ranges = c(16898093,17040483),data = Huvec)}
 
 }
 \references{

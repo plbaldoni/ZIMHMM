@@ -21,8 +21,8 @@ This function create offsets for peak calling. The current implementation can ou
 total sum of read counts (method="sum"), smoothed MA trend (method="loess", similar to csaw), or median ratio (method="ratio", similar to DESeq2).
 }
 \examples{
-data(H3K36me3.Huvec)
-ChIP = as.matrix(H3K36me3.Huvec[,c("H3K36me3.Huvec.Rep1","H3K36me3.Huvec.Rep2","H3K36me3.Huvec.Rep3")])
+data(Huvec)
+ChIP = SummarizedExperiment::assay(Huvec,'ChIP')
 offset = createOffset(ChIP,method="loess")
 
 }
