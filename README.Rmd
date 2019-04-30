@@ -45,7 +45,7 @@ peakcall = ZIMHMM(ChIP = ChIP,Control = Control,offset = offset,random = 'interc
 ```
 
 ## Post-processing
-The current implementation of `ZIMHMM` contains two functions for data visualization. The first function is `plotPeaks`, which plots the ChIP-seq read counts, called peaks from `ZIMHMM`, and the associated window-based posterior probabilities of enrichment. The input data should be formatted as a `RangedSummarizedExperiment` object (such as the example dataset Huvec).
+The current implementation of `ZIMHMM` contains two functions for data visualization. The first function is `plotPeaks`, which plots the ChIP-seq read counts, the called peaks from `ZIMHMM`, and the associated window-based posterior probabilities of enrichment. The input data should be formatted as a `RangedSummarizedExperiment` object (such as the example dataset Huvec).
 
 ```{r plots,eval=T,echo=T,message=F,warning=F,results='hide',fig.keep='all'}
 # Plotting peak calls
