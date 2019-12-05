@@ -16,8 +16,7 @@ library(SummarizedExperiment)
 ```
 # ZIMHMM
 
-ZIMHMM (Zero Inflated Mixed effects Hidden Markov Model) is a package with a peak caller to detect broad enrichment regions from multiple ChIP-seq experimental replicates. `ZIMHMM()` models the zero-inflation of background counts (ZI), accounts for replicate-specific differences via a mixed effects model (M), and ensures that broad regions of enrichment are detected by fitting a hidden Markov model (HMM). This package also contains `ZIHMM()`, a fixed effects version of the peak caller. The function `controlPeaks()` provides parameters that control the Expectation-Maximization (EM) algorithm from the presented peak callers. Please refer to their documentation (e.g. `?ZIMHMM::ZIMHMM`) for details.
-
+ZIMHMM (Zero Inflated Mixed effects Hidden Markov Model) is a package with a peak caller to detect broad enrichment regions from multiple ChIP-seq experimental replicates. `ZIMHMM()` is a multi-sample peak caller that models the zero-inflation of background counts, accounts for replicate-specific differences via a mixed effects model, and ensures that broad regions of enrichment are detected by fitting a hidden Markov model. This package also contains `ZIHMM()`, a fixed effects version of the peak caller. `ZIHMM()` can be used in single- and multi-sample settings. The function `controlPeaks()` provides parameters that control the Expectation-Maximization (EM) algorithm from the presented peak callers. Please refer to their documentation (e.g. `?ZIMHMM::ZIMHMM`) for details. The paper for ZIMHMM was published in the Biometrics journal. [Click here](https://onlinelibrary.wiley.com/doi/abs/10.1111/biom.13083) to read it.
 
 ## Installation
 
